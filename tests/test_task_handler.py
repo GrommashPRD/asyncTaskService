@@ -7,8 +7,8 @@ from src.api.handlers.tasks.task_handler import (cancel_task, create_task,
                                                  get_task, get_task_status,
                                                  list_tasks)
 from src.entity.tasks import CreateTask, TaskPriority, TaskStatus
-from src.schemas.requests_schemas.tasks.schemas import (TaskCreateRequest,
-                                                        TaskListFilterQuery)
+from src.api.schemas.requests_schemas.tasks.schemas import (TaskCreateRequest,
+                                                            TaskListFilterQuery)
 
 
 @pytest.mark.asyncio()

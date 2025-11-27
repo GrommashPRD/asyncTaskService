@@ -8,11 +8,11 @@ from src.entity.tasks import CreateTask, Pagination, TaskFilter
 from src.exceptions import (AppError, MessagingError, RepositoryError,
                             TaskCancellationError, TaskNotFoundError)
 from src.logger import logger
-from src.schemas.requests_schemas.tasks.schemas import (TaskCreateRequest,
-                                                        TaskListFilterQuery)
-from src.schemas.response_schemas.schemas import (TaskListResponse,
-                                                  TaskResponse,
-                                                  TaskStatusResponse)
+from src.api.schemas.requests_schemas.tasks.schemas import (TaskCreateRequest,
+                                                            TaskListFilterQuery)
+from src.api.schemas.response_schemas.schemas import (TaskListResponse,
+                                                      TaskResponse,
+                                                      TaskStatusResponse)
 from src.usecase.tasks import TaskUseCase
 
 router = APIRouter(
