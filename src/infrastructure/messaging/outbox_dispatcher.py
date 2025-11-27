@@ -9,7 +9,7 @@ from src.infrastructure.persistence.db import Database
 from src.infrastructure.persistence.repositories.outbox import OutboxRepository
 from src.infrastructure.persistence.repositories.tasks import TaskRepository
 from src.logger import logger
-from src.messaging.priority_queue import PriorityTaskQueue
+from src.infrastructure.messaging.priority_queue import PriorityTaskQueue
 
 
 class OutboxDispatcher:
@@ -128,7 +128,7 @@ async def main(loop_sleep: float = 2.0) -> None:
 
     dispatcher = OutboxDispatcher(
         db=container.infrastructure.db(),
-        publisher=container.messaging.priority_task_queue(),
+        publisher=container.infrastructure.priority_task_queue(),
         idle_sleep=loop_sleep,
     )
     await dispatcher.run_forever()
