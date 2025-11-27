@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  app:
+    image: cism_tasks
+    container_name: ano_cism_app
+    env_file:
+      - .env.example
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:17
+    container_name: tenders_db
+    restart: always
+    env_file:
+      - .env.db.example
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  alembic:
+    image: cism_tasks
+    env_file:
+      - .env.example
+    command: [ "alembic", "upgrade", "head" ]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    hostname: rabbitmq
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+volumes:
+  rabbitmq-data:
+
