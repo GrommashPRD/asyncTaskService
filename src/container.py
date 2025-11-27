@@ -5,7 +5,6 @@
 from dependency_injector import containers, providers
 
 from src.infrastructure.container import InfrastructureContainer
-from src.messaging.container import MessagingContainer
 from src.usecase.container import UsecaseContainer
 
 
@@ -25,10 +24,4 @@ class Container(containers.DeclarativeContainer):
         UsecaseContainer,
         task_repository=infrastructure.task_repository,
         uow=infrastructure.uow,
-    )
-
-
-    messaging = providers.Container(
-        MessagingContainer,
-        config=config,
     )

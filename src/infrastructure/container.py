@@ -4,6 +4,7 @@
 
 from dependency_injector import containers, providers
 
+from src.infrastructure.messaging.priority_queue import PriorityTaskQueue
 from src.infrastructure.persistence.db import Database
 from src.infrastructure.persistence.repositories.tasks import TaskRepository
 from src.infrastructure.persistence.uow import UnitOfWork
@@ -44,6 +45,8 @@ class InfrastructureContainer(containers.DeclarativeContainer):
         TaskRepository,
         session=session_factory,
     )
+
+    priority_task_queue = providers.Factory(PriorityTaskQueue)
 
     uow = providers.Singleton(
         UnitOfWork,
